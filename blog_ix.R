@@ -1,0 +1,7 @@
+library(blogdown)
+new_site()
+options(blogdown.author = 'Will')
+serve_site()
+new_post("My first kaggle comp", ext = ".Rmd")
+new_post("About Me", ext = '.Rmd')
+new_post("Week2 Package", ext = '.Rmd')
