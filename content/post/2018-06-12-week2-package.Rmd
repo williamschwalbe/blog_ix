@@ -6,3 +6,50 @@ slug: week2-package
 categories: []
 tags: []
 ---
+##Introduction:
+Becuase i am currently working on a kaggle competition where the task is to determine if a person will default on a loan or not i thought i would be super useful to create a package that would help me out with my submission and facilitate carrying out certain basic tasks
+## Creating a CSV file
+ Given your data and model this function will create a csv file named 'kaggle submission' that is ready to be submitted for the contest
+```{r csv file, echo=TRUE}
+write.csv <- function(test_data,model){
+credit.df <- data.frame(SK_ID_CURR = test_data$SK_ID_CURR, TARGET = predict(model,test_data))
+write.csv(credit.df,"kaggle submission" , row.names = FALSE, quote = FALSE)
+}
+```
+
+##Splitting up the training set into a 2 subsets to test accuracy
+Given a dataset, this function will split the data into training and testing sets
+```{r echo=TRUE}
+trainTestSplit <- function(dataFrame) {
+index <- createDataPartition(dataFrame$TARGET, p = 0.8, list = FALSE, times = 1)[,1]
+train = dataFrame[index,]
+test  = dataFrame[-index,]
+}
+```
+## Converting a columns missing values to median 
+Given a particular column name and the data table that it is in the function
+will fill all missing values with the median of the column assuming that it is numeric
+```{r}
+na_to_median <- function(data, colNum){
+  median_col <-median(data[,colNum], na.rm = TRUE)
+  data[,colNum][is.na(data[,colNum])] <- median_col
+}
+```
+## Removing columns with near zero variation
+The function removes all columns that have near zero statistical variation from one another
+```{r echo=TRUE}
+remove_zero_var<- function(data){
+data.nzv <- nearZeroVar(data, saveMetrics = TRUE)
+data <- data[, !data.nzv]
+}
+```
+## Removing highly correlated columns
+Removes columns from the data set that have high correlation, a threshold defined by the user
+```{r echo=TRUE}
+remove_correlation<- function(data, cutoffVal=.65){
+  data.correlated <- findCorrelation(cor(data), cutoff = cutoffVal, verbose = TRUE, exact = TRUE)
+  data <- data[, -data.correlated]
+}
+```
+##Data sets
+Also within the package are both training and test sets of the Home credit kaggle challenege if you want to experiment with these functions within the package itself the name of the training set is trainingData and the name of the testing set is testData

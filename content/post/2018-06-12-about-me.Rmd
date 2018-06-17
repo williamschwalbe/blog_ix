@@ -6,3 +6,4 @@ slug: about-me
 categories: []
 tags: []
 ---
+Hello my name is ** William Schwalbe ** and I am currently a rising Sophmore at the universtiy of Pennsylvania. I am very interested in data science, particularly in in its trading and financial applications and am currently studying economics and computer science at school. Outside of academia, I enjoy studying various topics related to health and fitness, am an active sneaker collector and reseller, and huge fan of Kanye West. Welcome to my blog!
